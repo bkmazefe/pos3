@@ -1,7 +1,7 @@
 local pos3 = {}
 
 export type pos3 = {
-	type: "pos3",
+	_type: "pos3",
 	origin: Vector3,
 	target: Vector3,
 	direction: Vector3,
@@ -18,7 +18,7 @@ end
 function pos3.new(origin: Vector3, target: Vector3): pos3
 	local diff = (target - origin)
 	return {
-		type = "pos3",
+		_type = "pos3",
 		origin = origin,
 		target = target,
 		direction = diff.Unit,
@@ -31,21 +31,15 @@ function pos3.serialize(pos3: pos3): string
 	local str = "pos3_"
 	str = str .. tostring(pos3.origin) .. "_"
 	str = str .. tostring(pos3.target) .. "_"
-	str = str .. tostring(pos3.direction) .. "_"
-	str = str .. tostring(pos3.diff)
 	return str
 end
 
 -- deserialize a pos3 object
 function pos3.deserialize(str: string): pos3
 	local parts = string.split(str, "_")
-	return {
-		type = "pos3",
-		origin = desieralizeVector3(parts[2]),
-		target = desieralizeVector3(parts[3]),
-		direction = desieralizeVector3(parts[4]),
-		diff = tonumber(parts[5]),
-	}
+	local origin = desieralizeVector3(parts[2])
+	local target = desieralizeVector3(parts[3])
+	return pos3.new(origin, target)
 end
 
 return pos3
