@@ -9,7 +9,7 @@ export type pos3 = {
 }
 
 -- deserialize a vector3 object
-local function desieralizeVector3(str: string): Vector3
+local function deserializeVector3(str: string): Vector3
 	local parts = string.split(str, ",")
 	return Vector3.new(tonumber(parts[1]), tonumber(parts[2]), tonumber(parts[3]))
 end
@@ -37,8 +37,8 @@ end
 -- deserialize a pos3 object
 function pos3.deserialize(str: string): pos3
 	local parts = string.split(str, "_")
-	local origin = desieralizeVector3(parts[2])
-	local target = desieralizeVector3(parts[3])
+	local origin = deserializeVector3(parts[2])
+	local target = deserializeVector3(parts[3])
 	return pos3.new(origin, target)
 end
 
